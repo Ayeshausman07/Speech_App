@@ -1,0 +1,47 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+  }
+  
+  h1, p {
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  button {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+  }
+  
+  button:hover {
+    transform: scale(1.1);
+  }
+  
+  textarea {
+    resize: none;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    outline: none;
+    padding: 10px;
+  }
+  
+  textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .container {
+    text-align: center;
+  }
+  .message {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+
+  .footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 1.1rem;
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speech App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container text-center d-flex flex-column justify-content-center align-items-center vh-100">
+    <h1 class="mb-4 display-4 animate__animated animate__fadeInDown">Welcome to Speech App</h1>
+    <p class="lead mb-5 animate__animated animate__fadeInUp">Choose an option below:</p>
+    <div class="d-flex gap-3">
+      <a href="speech-to-text.html" id="option1" class="btn btn-primary btn-lg">🎤 Speech to Text</a>
+      <a href="text-to-speech.html" id="option2" class="btn btn-success btn-lg">🔊 Text to Speech</a>
+      <a href="blind.html" id="option3" class="btn btn-warning btn-lg">🔊 Message for Blind Users</a>
+    </div>
+
+    <div class="container">
+        <p class="message">Press space for directions.</p>
+      </div>
+      
+  <div class="footer">
+    Created by <strong>: Ayesha Usman</strong>
+</div>
+  </div>
+
+  <script>
+const synth = window.speechSynthesis;
+
+// Ensure the welcome message plays only once
+window.onload = () => {
+  if (!localStorage.getItem("hasWelcomed")) {
+    localStorage.setItem("hasWelcomed", "true");
+    speakText("Welcome to Speech App. Press space for directions.");
+  }
+};
+
+// Speak a given text
+function speakText(text) {
+  synth.cancel(); // Stop any ongoing speech
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-US";
+  synth.speak(utterance);
+}
+
+// Provide feedback and redirect the user
+function provideFeedbackAndRedirect(message, url) {
+  synth.cancel(); // Stop ongoing speech
+  speakText(message);
+  setTimeout(() => {
+    window.location.href = url;
+  }, 500); // Delay to let the feedback finish
+}
+
+// Stop speech when the user returns to the main page
+window.addEventListener("focus", () => {
+  synth.cancel(); // Stop any ongoing speech when the page gains focus
+});
+
+// Handle keydown events for directions and navigation
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Space") {
+    speakText(
+      "Press 1 for Speech to Text, Press 2 for Text to Speech, or Press 3 for Accessibility for Blind Users."
+    );
+  } else if (event.key === "1") {
+    provideFeedbackAndRedirect(
+      "You are entering Speech to Text,click the listening button and then you can speak.",
+      "speech-to-text.html"
+    );
+  } else if (event.key === "2") {
+    provideFeedbackAndRedirect(
+      "You are entering Text to Speech. Now you can type text.",
+      "text-to-speech.html"
+    );
+  } else if (event.key === "3") {
+    provideFeedbackAndRedirect(
+      "Welcome to the accessibility page designed just for you. We believe that vision is more than what the eyes see—it’s about experiencing the world through sound, touch, and intuition. This platform is built to empower and assist you in navigating seamlessly. Remember, your strength and perspective inspire us all. Let your voice be heard, and let us help you connect, create, and thrive.",
+      "blind-accessibility.html"
+    );
+  }
+});
+
+// Add click event listeners for buttons
+document.getElementById("option1").addEventListener("click", () => {
+  provideFeedbackAndRedirect(
+    "You are entering Speech to Text. Now you can speak.",
+    "speech-to-text.html"
+  );
+});
+
+document.getElementById("option2").addEventListener("click", () => {
+  provideFeedbackAndRedirect(
+    "You are entering Text to Speech. Now you can type text.",
+    "text-to-speech.html"
+  );
+});
+
+document.getElementById("option3").addEventListener("click", () => {
+  provideFeedbackAndRedirect(
+    "Welcome to the accessibility page designed just for you. We believe that vision is more than what the eyes see—it’s about experiencing the world through sound, touch, and intuition. This platform is built to empower and assist you in navigating seamlessly. Remember, your strength and perspective inspire us all. Let your voice be heard, and let us help you connect, create, and thrive.",
+    "blind-accessibility.html"
+  );
+});
+
+
+  </script>
+</body>
+</html>
